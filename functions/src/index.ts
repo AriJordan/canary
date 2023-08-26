@@ -15,9 +15,9 @@ export const sendCanaryAlert = functions.https.onRequest(async (request, respons
     if (canaryId == pitchCanary) {
       canaryId = "00-00-00-00-00-00";
     }
-    const phonenumbersRef = db.collection("canaries").doc(canaryId).collection("phonenumbers");
+    const phoneNumbersRef = db.collection("canaries").doc(canaryId).collection("phoneNumbers");
 
-    const snapshot = await phonenumbersRef.get();
+    const snapshot = await phoneNumbersRef.get();
 
     if (snapshot.empty) {
       console.log("No matching documents.");
@@ -27,7 +27,7 @@ export const sendCanaryAlert = functions.https.onRequest(async (request, respons
 
     // Iterate through the documents and send message to each phone number
     snapshot.forEach((doc) => {
-      const phoneNumber = doc.data().phonenumber;
+      const phoneNumber = doc.data().phoneNumber;
       if (phoneNumber) {
         // Write to Firestore to trigger SMS
         db.collection("messages").add({ to: phoneNumber, body: `Canary ${canaryId} detected a smoke alarm!` });

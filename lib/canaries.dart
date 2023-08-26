@@ -1,57 +1,31 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 
+import 'package:canary/data.dart';
 import 'package:canary/logging.dart';
 
-// To update and get devices from different screens
+// To update and get canaries from different screens
 class CanariesChangeNotifier extends ChangeNotifier {
   final log = logger(CanariesChangeNotifier);
-  final LinkedHashMap<String, String> _devices = LinkedHashMap();
-  // Upload devices also in beginning
-  // bool _devicesNeedUpdate = true;
-  // bool _devicesUpdating = false;
+  final LinkedHashMap<String, String> _canaries = LinkedHashMap();
 
   CanariesChangeNotifier() {
-    log.d("Rebuilding devicesChangeNotifier");
+    log.d("Rebuilding canariesChangeNotifier");
   }
 
-  LinkedHashMap<String, String> get devices => _devices;
+  LinkedHashMap<String, String> get canaries => _canaries;
 
-  void addDeviceValue(String key, String value) {
+  void addCanaryValue(String key, String value) {
     log.d("Updating device $key to $value");
-    _devices[key] = value;
-    // _devicesNeedUpdate = true;
+    _canaries[key] = value;
     notifyListeners();
-    updatedevices();
+    CanariesData().saveCanaryPhonenumber(key, value);
   }
 
-  void deleteDevice(String key) {
+  void deleteCanary(String key) {
     log.d("Deleting device $key");
-    _devices.remove(key);
-    // _devicesNeedUpdate = true;
+    _canaries.remove(key);
     notifyListeners();
-    updatedevices();
-  }
-
-  // Update user's desired devices if needed and not already updating
-  // Not intended to be `await`ed
-  // TODOaj: implement
-  Future<void> updatedevices() async {
-    // log.i("Maybe updating user's devices");
-    // log.d(_devices);
-    // if (_devicesNeedUpdate && !_devicesUpdating) {
-    //   _devicesUpdating = true;
-    //   while (_devicesNeedUpdate) {
-    //     log.i("Updating user's devices ...");
-    //     _devicesNeedUpdate = false;
-    //     try {
-    //       await devicesData(uid: uid).updatedevices(Completedevices(_devices));
-    //       log.i("Updated user's devices");
-    //     } catch (e, stackTrace) {
-    //       log.e("$e, $stackTrace");
-    //     }
-    //   }
-    //   _devicesUpdating = false;
-    // }
+    // TODOaj: Delete in database
   }
 }

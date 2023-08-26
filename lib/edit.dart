@@ -43,7 +43,7 @@ Align getDeleteButton(BuildContext context, String key) {
     alignment: Alignment.center,
     child: ElevatedButton(
       onPressed: () async {
-        devicesChangeNotifier.deleteDevice(key);
+        devicesChangeNotifier.deleteCanary(key);
         Navigator.pop(context);
       },
       style: elevatedButtonStyle,
@@ -89,7 +89,8 @@ class EditScreenState extends State<EditScreen> {
           child: ReduceWideWidth(
             child: Builder(builder: (context) {
               List<Widget> devices = [];
-              for (MapEntry mapEntry in devicesChangeNotifier.devices.entries) {
+              for (MapEntry mapEntry
+                  in devicesChangeNotifier.canaries.entries) {
                 devices.add(
                   Padding(
                     padding: const EdgeInsets.all(8.0),

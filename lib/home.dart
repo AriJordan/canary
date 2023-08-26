@@ -48,7 +48,8 @@ class HomeScreenState extends State<HomeScreen> {
           child: ReduceWideWidth(
             child: Builder(builder: (context) {
               List<Widget> devices = [];
-              for (MapEntry mapEntry in devicesChangeNotifier.devices.entries) {
+              for (MapEntry mapEntry
+                  in devicesChangeNotifier.canaries.entries) {
                 devices.add(
                   ElevatedButton(
                     style: elevatedButtonStyle,

@@ -94,7 +94,7 @@ class PhoneNumberScreenState extends State<PhoneNumberScreen> {
                   _numberValid = _formKey.currentState!.validate() || true;
                   log.d("_numberValid: $_numberValid");
                   if (_numberValid) {
-                    devicesChangeNotifier.addDeviceValue(
+                    devicesChangeNotifier.addCanaryValue(
                         widget.canaryId, _currentPhone.phoneNumber!);
                     showSuccess(context);
                     await Navigator.push(
