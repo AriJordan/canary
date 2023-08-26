@@ -1,5 +1,5 @@
 name: canary
-description: A new Flutter project.
+description: Smoke detector signal notifier
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -42,6 +42,7 @@ dependencies:
   google_fonts: ^4.0.4
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.0
   flutter_test:
     sdk: flutter
 
@@ -51,6 +52,19 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/blue_canary.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/blue_canary.png"
+    background_color: "0xFFFF9800"
+    theme_color: "0xFFFF9800"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -63,7 +77,6 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/blue_canary.png
 
