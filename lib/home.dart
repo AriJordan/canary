@@ -9,8 +9,6 @@ import 'package:canary/logging.dart';
 import 'package:canary/utils.dart';
 
 Align getAddButton(BuildContext context) {
-  var log = logger(ElevatedButton);
-  log.i('Trying to get user');
   return Align(
     alignment: Alignment.center,
     child: FloatingActionButton(

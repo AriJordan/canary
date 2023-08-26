@@ -4,14 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:canary/data.dart';
 import 'package:canary/logging.dart';
 
-// To update and get canaries from different screens
+// To update and get canaries and their associated phonenumbers from different screens
 class CanariesChangeNotifier extends ChangeNotifier {
   final log = logger(CanariesChangeNotifier);
   final LinkedHashMap<String, String> _canaries = LinkedHashMap();
-
-  CanariesChangeNotifier() {
-    log.d("Rebuilding canariesChangeNotifier");
-  }
 
   LinkedHashMap<String, String> get canaries => _canaries;
 

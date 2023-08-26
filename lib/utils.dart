@@ -9,7 +9,6 @@ double widthLimit(BuildContext context) {
 }
 
 // Avoid layout being too wide on wide screens.
-// The idea is to apply it to all screens (except maybe chat) for a more consistent format.
 class ReduceWideWidth extends StatelessWidget {
   final Widget child;
   const ReduceWideWidth({super.key, required this.child});
@@ -20,7 +19,7 @@ class ReduceWideWidth extends StatelessWidget {
       child: SizedBox(
         width: widthLimit(context),
         child: Padding(
-            // `bottom` more to let user scroll down a bit further down to see there is nothing left
+            // Always some nice padding
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 50),
             child: child),
       ),

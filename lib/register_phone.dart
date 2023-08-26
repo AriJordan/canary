@@ -42,16 +42,6 @@ class PhoneNumberScreenState extends State<PhoneNumberScreen> {
   PhoneNumber _currentPhone = PhoneNumber(isoCode: "CH");
   bool _numberValid = true;
 
-  // `phoneNumber` must have non-null members `phoneNumber` and `dialCode`
-  String getLocalNumber(PhoneNumber phoneNumber) {
-    assert(phoneNumber.phoneNumber != null);
-    assert(phoneNumber.dialCode != null);
-    // Both without '+'
-    return phoneNumber.phoneNumber!
-        .replaceAll('+', '')
-        .substring(phoneNumber.dialCode!.replaceAll('+', '').length);
-  }
-
   @override
   Widget build(BuildContext context) {
     CanariesChangeNotifier devicesChangeNotifier =
@@ -90,19 +80,16 @@ class PhoneNumberScreenState extends State<PhoneNumberScreen> {
                 style: elevatedButtonStyle,
                 child: const Text('Bestätigen'),
                 onPressed: () async {
-                  log.d(_currentPhone.phoneNumber);
-                  _numberValid = _formKey.currentState!.validate() || true;
+                  // TODOaj: Handle when number is not valid
+                  _numberValid = _formKey.currentState!.validate();
                   log.d("_numberValid: $_numberValid");
-                  if (_numberValid) {
-                    devicesChangeNotifier.addCanaryValue(
-                        widget.canaryId, _currentPhone.phoneNumber!);
-                    showSuccess(context);
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
-                    );
-                  }
+                  devicesChangeNotifier.addCanaryValue(
+                      widget.canaryId, _currentPhone.phoneNumber!);
+                  showSuccess(context);
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  );
                 },
               ),
             ],

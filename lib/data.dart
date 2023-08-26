@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:canary/logging.dart';
 
+// Connection to database
 class CanariesData {
   final log = logger(CanariesData);
 

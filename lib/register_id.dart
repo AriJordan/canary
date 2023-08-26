@@ -1,7 +1,7 @@
-import 'package:canary/register_phone.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
+import 'package:canary/register_phone.dart';
 import 'package:canary/utils.dart';
 import 'package:canary/logging.dart';
 

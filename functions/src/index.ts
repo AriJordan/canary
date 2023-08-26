@@ -9,7 +9,7 @@ const db = admin.firestore();
 
 export const sendCanaryAlert = functions.https.onRequest(async (request, response) => {
   try {
-    // TODOaj: Adapt this to the pitch canaryId
+    // TODOaj: Possibly adapt this to the pitch canaryId
     const pitchCanary = "12-34-56-78-90-12";
     let canaryId: string = request.body.canaryId;
     if (canaryId == pitchCanary) {

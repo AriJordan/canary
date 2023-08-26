@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:canary/canaries.dart';
 import 'package:canary/register_id.dart';
 
-// Wrapper deciding which screen to show based on authentication
+// Wrapper to give data access to all screens
 class WrapperScreen extends StatefulWidget {
   const WrapperScreen({super.key});
 
@@ -14,7 +14,6 @@ class WrapperScreen extends StatefulWidget {
 }
 
 class _WrapperScreenState extends State<WrapperScreen> {
-  // Return either Authenticate, Onboarding or Home screen
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

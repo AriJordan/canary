@@ -1,9 +1,9 @@
-import 'package:canary/register_id.dart';
-import 'package:canary/register_phone.dart';
-import 'package:canary/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:canary/register_id.dart';
+import 'package:canary/register_phone.dart';
+import 'package:canary/utils.dart';
 import 'package:canary/canaries.dart';
 import 'package:canary/logging.dart';
 import 'package:canary/styles.dart';
