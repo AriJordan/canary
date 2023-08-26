@@ -113,7 +113,12 @@ class EditScreenState extends State<EditScreen> {
                     textScaleFactor: 2.0,
                   ),
                   const SizedBox(height: 8),
-                  iconText(Icons.memory, "ID: ${widget.canaryId}"),
+                  iconText(
+                      const Icon(
+                        Icons.memory,
+                        size: 26,
+                      ),
+                      "ID: ${widget.canaryId}"),
                   const SizedBox(height: 24),
                   ElevatedButton(
                       style: elevatedButtonStyle,
@@ -125,7 +130,12 @@ class EditScreenState extends State<EditScreen> {
                                   PhoneNumberScreen(canaryId: widget.canaryId)),
                         );
                       },
-                      child: iconText(Icons.phone, widget.phoneNumber)),
+                      child: iconText(
+                          const Icon(
+                            Icons.phone,
+                            size: 26,
+                          ),
+                          widget.phoneNumber)),
                   const SizedBox(
                     height: 4,
                   ),

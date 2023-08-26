@@ -66,12 +66,9 @@ AppBar titleBarWidget() {
   );
 }
 
-Row iconText(IconData icon, String text) {
+Row iconText(Icon icon, String text) {
   return Row(mainAxisSize: MainAxisSize.min, children: [
-    Icon(
-      icon,
-      size: 26,
-    ),
+    icon,
     const SizedBox(
       width: 4,
     ),

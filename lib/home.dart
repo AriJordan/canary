@@ -64,9 +64,18 @@ class HomeScreenState extends State<HomeScreen> {
                     },
                     child: Column(
                       children: [
-                        iconText(Icons.memory, "Canary ID: ${mapEntry.key}"),
                         iconText(
-                            Icons.phone, "Telefonnummer: ${mapEntry.value}"),
+                            const Icon(
+                              Icons.memory,
+                              size: 42,
+                            ),
+                            "Canary ID:\n${mapEntry.key}"),
+                        iconText(
+                            const Icon(
+                              Icons.phone,
+                              size: 42,
+                            ),
+                            "Telefonnummer:\n${mapEntry.value}"),
                       ],
                     ),
                   ),
@@ -91,7 +100,7 @@ class HomeScreenState extends State<HomeScreen> {
                   getAddButton(context),
                   const SizedBox(height: 16),
                   infoText(
-                      'Du kannst mehrmals das gleiche Canary Gerät oder die gleiche Telefonnummer registrieren'),
+                      'Du kannst mehrmals die gleiche Telefonnummer registrieren'),
                 ],
               );
             }),
