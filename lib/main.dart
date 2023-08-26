@@ -1,5 +1,6 @@
-import 'package:canary/wrapper.dart';
 import 'package:flutter/material.dart';
+
+import 'package:canary/wrapper.dart';
 
 void main() {
   runApp(const MyApp());

@@ -112,29 +112,20 @@ class EditScreenState extends State<EditScreen> {
                     "Canary Gerät anpassen",
                     textScaleFactor: 2.0,
                   ),
-                  Text("Canary ID: ${widget.canaryId}"),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
+                  iconText(Icons.memory, "ID: ${widget.canaryId}"),
+                  const SizedBox(height: 24),
                   ElevatedButton(
-                    style: elevatedButtonStyle,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                PhoneNumberScreen(canaryId: widget.canaryId)),
-                      );
-                    },
-                    child: Row(mainAxisSize: MainAxisSize.min, children: [
-                      const Icon(
-                        Icons.phone,
-                        size: 26,
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      Text(widget.phoneNumber)
-                    ]),
-                  ),
+                      style: elevatedButtonStyle,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PhoneNumberScreen(canaryId: widget.canaryId)),
+                        );
+                      },
+                      child: iconText(Icons.phone, widget.phoneNumber)),
                   const SizedBox(
                     height: 4,
                   ),
@@ -142,7 +133,7 @@ class EditScreenState extends State<EditScreen> {
                     "Anklicken zum ändern",
                     style: TextStyle(color: Colors.grey),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 24),
                   getDeleteButton(context, widget.canaryId),
                 ],
               );

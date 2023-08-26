@@ -62,8 +62,13 @@ class HomeScreenState extends State<HomeScreen> {
                                 )),
                       );
                     },
-                    child: Text(
-                        'Canary ID: ${mapEntry.key}\nTelefonnummer: ${mapEntry.value}'),
+                    child: Column(
+                      children: [
+                        iconText(Icons.memory, "Canary ID: ${mapEntry.key}"),
+                        iconText(
+                            Icons.phone, "Telefonnummer: ${mapEntry.value}"),
+                      ],
+                    ),
                   ),
                 );
                 devices.add(const SizedBox(height: 4));
@@ -81,9 +86,7 @@ class HomeScreenState extends State<HomeScreen> {
                     "Registrierte Canary Geräte",
                     textScaleFactor: 2.0,
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
+                  const SizedBox(height: 16),
                   ...devices,
                   getAddButton(context),
                   const SizedBox(height: 16),

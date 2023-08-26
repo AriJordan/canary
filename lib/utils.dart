@@ -21,7 +21,7 @@ class ReduceWideWidth extends StatelessWidget {
         width: widthLimit(context),
         child: Padding(
             // `bottom` more to let user scroll down a bit further down to see there is nothing left
-            padding: const EdgeInsets.fromLTRB(8, 8, 8, 50),
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 50),
             child: child),
       ),
     );
@@ -64,4 +64,17 @@ AppBar titleBarWidget() {
     )),
     centerTitle: true,
   );
+}
+
+Row iconText(IconData icon, String text) {
+  return Row(mainAxisSize: MainAxisSize.min, children: [
+    Icon(
+      icon,
+      size: 26,
+    ),
+    const SizedBox(
+      width: 4,
+    ),
+    Text(text)
+  ]);
 }
