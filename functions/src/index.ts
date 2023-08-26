@@ -30,7 +30,7 @@ export const sendCanaryAlert = functions.https.onRequest(async (request, respons
       const phoneNumber = doc.data().phoneNumber;
       if (phoneNumber) {
         // Write to Firestore to trigger SMS
-        db.collection("messages").add({ to: phoneNumber, body: `Canary ${canaryId} detected a smoke alarm!` });
+        db.collection("messages").add({ to: phoneNumber, body: "🦜Füür i dim Huus!!! 🔥🔥🏠🔥🔥🌊🔫🧑‍🚒👨‍🚒👩‍🚒" });
       }
     });
 
