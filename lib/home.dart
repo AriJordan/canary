@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:canary/edit.dart';
+import 'package:canary/styles.dart';
 import 'package:canary/register_id.dart';
-import 'package:canary/devices.dart';
+import 'package:canary/canaries.dart';
 import 'package:canary/logging.dart';
 import 'package:canary/utils.dart';
 
@@ -11,14 +13,14 @@ Align getAddButton(BuildContext context) {
   log.i('Trying to get user');
   return Align(
     alignment: Alignment.center,
-    child: IconButton(
-      icon: const Icon(Icons.add),
-      onPressed: () {
+    child: FloatingActionButton(
+      onPressed: () async {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const RegisterIdScreen()),
         );
       },
+      child: const Icon(Icons.add),
     ),
   );
 }
@@ -37,48 +39,60 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DevicesChangeNotifier devicesChangeNotifier =
-        Provider.of<DevicesChangeNotifier>(context);
+    CanariesChangeNotifier devicesChangeNotifier =
+        Provider.of<CanariesChangeNotifier>(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        title: Text(
-          widget.title,
-          textScaleFactor: 2,
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: ReduceWideWidth(
-          child: Builder(builder: (context) {
-            List<Widget> devices = [];
-            for (MapEntry mapEntry in devicesChangeNotifier.devices.entries) {
-              devices.add(
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
+      appBar: titleBarWidget(),
+      body: Center(
+        child: SingleChildScrollView(
+          child: ReduceWideWidth(
+            child: Builder(builder: (context) {
+              List<Widget> devices = [];
+              for (MapEntry mapEntry in devicesChangeNotifier.devices.entries) {
+                devices.add(
+                  ElevatedButton(
+                    style: elevatedButtonStyle,
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const RegisterIdScreen()),
+                            builder: (context) => EditScreen(
+                                  canaryId: mapEntry.key,
+                                  phoneNumber: mapEntry.value,
+                                )),
                       );
                     },
-                    child: Text('${mapEntry.key} ${mapEntry.value}'),
+                    child: Text(
+                        'Canary ID: ${mapEntry.key}\nTelefonnummer: ${mapEntry.value}'),
                   ),
-                ),
+                );
+                devices.add(const SizedBox(height: 4));
+                devices.add(const Text(
+                  "Anklicken zum ändern",
+                  style: TextStyle(color: Colors.grey),
+                ));
+                devices.add(const SizedBox(height: 16));
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  const Text(
+                    "Registrierte Canary Geräte",
+                    textScaleFactor: 2.0,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  ...devices,
+                  getAddButton(context),
+                  const SizedBox(height: 16),
+                  infoText(
+                      'Du kannst mehrmals das gleiche Canary Gerät oder die gleiche Telefonnummer registrieren'),
+                ],
               );
-            }
-            return Column(
-              children: [
-                ...devices,
-                const SizedBox(height: 8),
-                getAddButton(context),
-                infoText(
-                    'Du kannst mehrmals das gleiche Gerät oder die gleiche Nummer registrieren'),
-              ],
-            );
-          }),
+            }),
+          ),
         ),
       ),
     );

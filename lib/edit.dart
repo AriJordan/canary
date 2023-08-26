@@ -1,21 +1,23 @@
 import 'package:canary/register_id.dart';
+import 'package:canary/register_phone.dart';
 import 'package:canary/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:canary/devices.dart';
+import 'package:canary/canaries.dart';
 import 'package:canary/logging.dart';
 import 'package:canary/styles.dart';
 
-Align getDeleteButton(BuildContext context, String key) {
-  //var log = logger(ElevatedButton);
-  DevicesChangeNotifier devicesChangeNotifier =
-      Provider.of<DevicesChangeNotifier>(context);
+Align getChangeButton(BuildContext context, String key) {
   return Align(
     alignment: Alignment.center,
     child: ElevatedButton(
       onPressed: () async {
-        devicesChangeNotifier.devices.remove(key);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => PhoneNumberScreen(canaryId: key)),
+        );
       },
       style: elevatedButtonStyle,
       child: Row(
@@ -23,11 +25,38 @@ Align getDeleteButton(BuildContext context, String key) {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           Icon(
-            Icons.logout,
+            Icons.phone,
             size: 26,
           ),
           SizedBox(width: 4),
-          Text('Löschen')
+          Text('Telefonnummer ändern')
+        ],
+      ),
+    ),
+  );
+}
+
+Align getDeleteButton(BuildContext context, String key) {
+  CanariesChangeNotifier devicesChangeNotifier =
+      Provider.of<CanariesChangeNotifier>(context);
+  return Align(
+    alignment: Alignment.center,
+    child: ElevatedButton(
+      onPressed: () async {
+        devicesChangeNotifier.deleteDevice(key);
+        Navigator.pop(context);
+      },
+      style: elevatedButtonStyle,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Icon(
+            Icons.delete,
+            size: 26,
+          ),
+          SizedBox(width: 4),
+          Text('Gerät Löschen')
         ],
       ),
     ),
@@ -36,7 +65,9 @@ Align getDeleteButton(BuildContext context, String key) {
 
 class EditScreen extends StatefulWidget {
   final String canaryId;
-  const EditScreen({super.key, required this.canaryId});
+  final String phoneNumber;
+  const EditScreen(
+      {super.key, required this.canaryId, required this.phoneNumber});
 
   final String title = 'Canary';
 
@@ -49,48 +80,74 @@ class EditScreenState extends State<EditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DevicesChangeNotifier devicesChangeNotifier =
-        Provider.of<DevicesChangeNotifier>(context);
+    CanariesChangeNotifier devicesChangeNotifier =
+        Provider.of<CanariesChangeNotifier>(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        title: Text(
-          widget.title,
-          textScaleFactor: 2,
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: ReduceWideWidth(
-          child: Builder(builder: (context) {
-            List<Widget> devices = [];
-            for (MapEntry mapEntry in devicesChangeNotifier.devices.entries) {
-              devices.add(
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
+      appBar: titleBarWidget(),
+      body: Center(
+        child: SingleChildScrollView(
+          child: ReduceWideWidth(
+            child: Builder(builder: (context) {
+              List<Widget> devices = [];
+              for (MapEntry mapEntry in devicesChangeNotifier.devices.entries) {
+                devices.add(
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegisterIdScreen()),
+                        );
+                      },
+                      child: Text('${mapEntry.key} ${mapEntry.value}'),
+                    ),
+                  ),
+                );
+              }
+              return Column(
+                children: [
+                  const Text(
+                    "Canary Gerät anpassen",
+                    textScaleFactor: 2.0,
+                  ),
+                  Text("Canary ID: ${widget.canaryId}"),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    style: elevatedButtonStyle,
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const RegisterIdScreen()),
+                            builder: (context) =>
+                                PhoneNumberScreen(canaryId: widget.canaryId)),
                       );
                     },
-                    child: Text('${mapEntry.key} ${mapEntry.value}'),
+                    child: Row(mainAxisSize: MainAxisSize.min, children: [
+                      const Icon(
+                        Icons.phone,
+                        size: 26,
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Text(widget.phoneNumber)
+                    ]),
                   ),
-                ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  const Text(
+                    "Anklicken zum ändern",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  const SizedBox(height: 16),
+                  getDeleteButton(context, widget.canaryId),
+                ],
               );
-            }
-            return Column(
-              children: [
-                ...devices,
-                const SizedBox(height: 8),
-                getDeleteButton(context, widget.canaryId),
-                infoText(
-                    'Du kannst mehrmals das gleiche Gerät oder die gleiche Nummer registrieren'),
-              ],
-            );
-          }),
+            }),
+          ),
         ),
       ),
     );

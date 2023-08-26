@@ -28,30 +28,40 @@ class ReduceWideWidth extends StatelessWidget {
   }
 }
 
-Row infoText(String text) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      const Icon(Icons.info_outline_rounded),
-      const SizedBox(width: 8),
-      Flexible(
-        child: Text(text),
-      ),
-    ],
+Padding infoText(String text) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(Icons.info_outline_rounded),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(text),
+        ),
+      ],
+    ),
   );
 }
 
-Center titleWidget() {
-  return Center(
-      child: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Image.asset('assets/blue_canary.png', height: 40),
-      Text(
-        "Canary",
-        style: GoogleFonts.roboto(color: Colors.black),
-        textScaleFactor: 2.4,
-      ),
-    ],
-  ));
+AppBar titleBarWidget() {
+  return AppBar(
+    title: Center(
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset('assets/blue_canary.png', height: 40),
+        const SizedBox(width: 4),
+        Text(
+          "Canary",
+          style: GoogleFonts.roboto(color: Colors.black),
+          textScaleFactor: 2.4,
+        ),
+        const SizedBox(
+          width: 8,
+        )
+      ],
+    )),
+    centerTitle: true,
+  );
 }

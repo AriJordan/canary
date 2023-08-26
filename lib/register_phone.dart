@@ -2,11 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 
-import 'package:canary/devices.dart';
+import 'package:canary/canaries.dart';
 import 'package:canary/home.dart';
 import 'package:canary/styles.dart';
 import 'package:canary/utils.dart';
 import 'package:canary/logging.dart';
+
+Future showSuccess(BuildContext context) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Erfolg'),
+          content: const Text(
+              'Canary Gerät und Telefonnummer erfolgreich registriert'),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text('Super'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      });
+}
 
 class PhoneNumberScreen extends StatefulWidget {
   final String canaryId;
@@ -34,12 +54,10 @@ class PhoneNumberScreenState extends State<PhoneNumberScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DevicesChangeNotifier devicesChangeNotifier =
-        Provider.of<DevicesChangeNotifier>(context);
+    CanariesChangeNotifier devicesChangeNotifier =
+        Provider.of<CanariesChangeNotifier>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('Phone number sign in')),
-      ),
+      appBar: titleBarWidget(),
       body: ReduceWideWidth(
         child: Form(
           key: _formKey,
@@ -47,6 +65,7 @@ class PhoneNumberScreenState extends State<PhoneNumberScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               InternationalPhoneNumberInput(
+                formatInput: false,
                 onInputChanged: (PhoneNumber number) async {
                   log.d("Phone number input changed");
                   if (mounted) {
@@ -63,14 +82,20 @@ class PhoneNumberScreenState extends State<PhoneNumberScreen> {
                 ),
                 initialValue: _currentPhone,
               ),
+              const SizedBox(
+                height: 16,
+              ),
               ElevatedButton(
                 style: elevatedButtonStyle,
                 child: const Text('Bestätigen'),
                 onPressed: () async {
-                  _numberValid = _formKey.currentState!.validate();
+                  log.d(_currentPhone.phoneNumber);
+                  _numberValid = _formKey.currentState!.validate() || true;
+                  log.d("_numberValid: $_numberValid");
                   if (_numberValid) {
                     devicesChangeNotifier.addDeviceValue(
                         widget.canaryId, _currentPhone.phoneNumber!);
+                    showSuccess(context);
                     await Navigator.push(
                       context,
                       MaterialPageRoute(

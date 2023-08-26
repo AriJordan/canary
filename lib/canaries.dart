@@ -1,21 +1,17 @@
-
 import 'dart:collection';
 import 'package:flutter/material.dart';
 
 import 'package:canary/logging.dart';
 
 // To update and get devices from different screens
-class DevicesChangeNotifier extends ChangeNotifier {
-  final log = logger(DevicesChangeNotifier);
-  String uid;
-  final LinkedHashMap<String, String> _devices;
+class CanariesChangeNotifier extends ChangeNotifier {
+  final log = logger(CanariesChangeNotifier);
+  final LinkedHashMap<String, String> _devices = LinkedHashMap();
   // Upload devices also in beginning
   // bool _devicesNeedUpdate = true;
   // bool _devicesUpdating = false;
 
-  DevicesChangeNotifier(
-      {required this.uid, required LinkedHashMap<String, String> devices})
-      : _devices = devices {
+  CanariesChangeNotifier() {
     log.d("Rebuilding devicesChangeNotifier");
   }
 

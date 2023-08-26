@@ -24,9 +24,7 @@ class RegisterIdScreenState extends State<RegisterIdScreen> {
     log.i("Building verify_code screen");
     return Scaffold(
       key: _scaffoldkey,
-      appBar: AppBar(
-        title: const Text('Phone Verification Code'),
-      ),
+      appBar: titleBarWidget(),
       body: ReduceWideWidth(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,20 +33,30 @@ class RegisterIdScreenState extends State<RegisterIdScreen> {
               'Bitte gib deine Canary ID (MAC Addresse) ein',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
+            const SizedBox(
+              height: 16,
+            ),
             Pinput(
               length: 12,
               controller: _pinPutController,
               pinAnimationType: PinAnimationType.fade,
               autofocus: true,
               separatorBuilder: (int id) =>
-                  id % 2 == 0 ? const Text("-") : const SizedBox(width: 2),
+                  id % 2 == 1 ? const Text(" - ") : const SizedBox(width: 2),
               onChanged: (pin) async {
                 if (pin.length == 12) {
+                  String canaryId = "";
+                  for (int i = 0; i < _pinPutController.text.length; i++) {
+                    canaryId += _pinPutController.text[i];
+                    if (i % 2 == 1 && i != _pinPutController.text.length - 1) {
+                      canaryId += "-";
+                    }
+                  }
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => PhoneNumberScreen(
-                            canaryId: _pinPutController.text)),
+                        builder: (context) =>
+                            PhoneNumberScreen(canaryId: canaryId)),
                   );
                 }
               },
@@ -62,6 +70,9 @@ class RegisterIdScreenState extends State<RegisterIdScreen> {
                   );
                 }
               },
+            ),
+            const SizedBox(
+              height: 24,
             ),
             infoText("Du findest diese auf deinem Canary Gerät")
           ],
