@@ -55,3 +55,6 @@ app.*.map.json
 
 # Who needs tests :)
 /test
+
+# Who needs rules :)
+firestore.rules

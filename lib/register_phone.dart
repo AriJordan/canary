@@ -81,6 +81,7 @@ class PhoneNumberScreenState extends State<PhoneNumberScreen> {
                   selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
                 ),
                 initialValue: _currentPhone,
+                hintText: "Telefonnummer",
               ),
               const SizedBox(
                 height: 16,
