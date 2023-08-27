@@ -49,7 +49,7 @@ AppBar titleBarWidget() {
         child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset('assets/blue_canary.png', height: 40),
+        Image.asset('assets/yellow_canary.png', height: 40),
         const SizedBox(width: 4),
         Text(
           "Canary",

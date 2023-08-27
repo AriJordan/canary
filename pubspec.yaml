@@ -61,11 +61,11 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/blue_canary.png"
+  image_path: "assets/yellow_canary.png"
   min_sdk_android: 21
   web:
     generate: true
-    image_path: "assets/blue_canary.png"
+    image_path: "assets/yellow_canary.png"
     background_color: "0xFFFF9800"
     theme_color: "0xFFFF9800"
 
@@ -81,7 +81,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/blue_canary.png
+    - assets/yellow_canary.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
